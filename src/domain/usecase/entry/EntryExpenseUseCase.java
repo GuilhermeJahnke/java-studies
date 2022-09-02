@@ -18,8 +18,10 @@ public class EntryExpenseUseCase {
         return repository.createEntryExpense(received, receivedDate, valor, date, category, description);
     }
 
-    public EntryExpenseEntities edit(boolean received, String date, String description) {
-        return repository.editEntryExpense(received, date, description);
+    public EntryExpenseEntities edit(boolean received, String receivedDate, String description, double valor,
+                                     String date, String category) {
+
+        return repository.editEntryExpense(received, receivedDate, description, valor, date, category);
     }
 
     public void remove(String description) {

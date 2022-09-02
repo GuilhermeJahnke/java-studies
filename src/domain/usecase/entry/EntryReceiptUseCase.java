@@ -19,8 +19,10 @@ public class EntryReceiptUseCase {
                 date, category, description);
     }
 
-    public EntryReceiptEntities edit(boolean received, String date, String description) {
-        return repository.editEntryReceipt(received, date, description);
+    public EntryReceiptEntities edit(boolean received, String receiptDate, String description, double valor, String date,
+                                     String category) {
+
+        return repository.editEntryReceipt(received, receiptDate, description, valor, date, category);
     }
 
     public void remove(String description) {

@@ -1,7 +1,5 @@
 package domain.entities.entry;
 
-import java.time.LocalDateTime;
-
 public class EntryInvestmentEntities extends EntryEntities {
     private boolean rescued;
     private String dueDate;

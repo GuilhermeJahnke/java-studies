@@ -27,11 +27,17 @@ public class EntryReceiptRepository {
         return newEntryReceipt;
     }
 
-    public EntryReceiptEntities editEntryReceipt(boolean received, String date, String description) {
+    public EntryReceiptEntities editEntryReceipt(boolean received, String receivedDate, String description,
+                                                 double valor, String date, String category) {
+
         EntryReceiptEntities receiptEdit = findByDescription(description);
 
+        receiptEdit.setValor(valor);
+        receiptEdit.setDate(date);
+        receiptEdit.setCategory(category);
+        receiptEdit.setDescription(description);
         receiptEdit.setReceived(received);
-        receiptEdit.setReceivedDate(date);
+        receiptEdit.setReceivedDate(receivedDate);
 
         return receiptEdit;
     }
