@@ -1,7 +1,5 @@
 package domain.entities.entry;
 
-import java.time.LocalDateTime;
-
 public class EntryReceiptEntities extends EntryEntities {
     private boolean received;
     private String receivedDate;

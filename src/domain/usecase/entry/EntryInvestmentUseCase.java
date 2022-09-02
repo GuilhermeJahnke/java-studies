@@ -18,8 +18,10 @@ public class EntryInvestmentUseCase {
         return repository.createEntryInvestment(rescued, dueDate, amountIncome, valor, date, category, description);
     }
 
-    public EntryInvestmentEntities edit(Double amountIncome, boolean rescued, String dueDate, String description){
-        return repository.editEntryInvestment(amountIncome, rescued, dueDate, description);
+    public EntryInvestmentEntities edit(Double amountIncome, boolean rescued, String dueDate, String description,
+                                        double valor, String date, String category){
+
+        return repository.editEntryInvestment(amountIncome, rescued, dueDate, description, valor, date, category);
     }
 
     public void remove(String description) {

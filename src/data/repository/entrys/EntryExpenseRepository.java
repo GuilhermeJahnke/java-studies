@@ -29,11 +29,16 @@ public class EntryExpenseRepository {
         return newEntryExpense;
     }
 
-    public EntryExpenseEntities editEntryExpense(boolean received, String date, String description) {
+    public EntryExpenseEntities editEntryExpense(boolean received, String receivedDate, String description, double valor,
+                                                 String date, String category) {
         EntryExpenseEntities expenseEdit = findByDescription(description);
 
+        expenseEdit.setValor(valor);
+        expenseEdit.setDate(date);
+        expenseEdit.setCategory(category);
+        expenseEdit.setDescription(description);
         expenseEdit.setReceived(received);
-        expenseEdit.setReceivedDate(date);
+        expenseEdit.setReceivedDate(receivedDate);
 
         return expenseEdit;
     }

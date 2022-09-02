@@ -2,11 +2,11 @@ package domain.entities.entry;
 
 import java.time.LocalDateTime;
 
-public abstract class EntryEntities  {
-    private final double valor;
-    private final String date;
-    private final String category;
-    private final String description;
+public class EntryEntities {
+    private double valor;
+    private String date;
+    private String category;
+    private String description;
 
     public EntryEntities( double valor, String date, String category, String description) {
 
@@ -31,6 +31,22 @@ public abstract class EntryEntities  {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
