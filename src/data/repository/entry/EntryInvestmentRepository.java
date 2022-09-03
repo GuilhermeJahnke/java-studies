@@ -1,4 +1,4 @@
-package data.repository.entrys;
+package data.repository.entry;
 
 
 import domain.entities.entry.EntryInvestmentEntities;

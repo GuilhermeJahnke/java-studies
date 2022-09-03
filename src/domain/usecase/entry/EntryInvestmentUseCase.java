@@ -1,6 +1,6 @@
 package domain.usecase.entry;
 
-import data.repository.entrys.EntryInvestmentRepository;
+import data.repository.entry.EntryInvestmentRepository;
 import domain.entities.entry.EntryInvestmentEntities;
 import shared.Utils;
 

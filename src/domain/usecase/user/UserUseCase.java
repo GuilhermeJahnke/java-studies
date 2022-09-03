@@ -1,7 +1,7 @@
 package domain.usecase.user;
 
 import data.repository.user.UserRepository;
-import domain.entities.User.UserEntities;
+import domain.entities.user.UserEntities;
 import shared.Utils;
 
 import java.util.ArrayList;

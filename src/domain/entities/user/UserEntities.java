@@ -1,6 +1,4 @@
-package domain.entities.User;
-
-import java.time.LocalDate;
+package domain.entities.user;
 
 public class UserEntities {
     private String name;
