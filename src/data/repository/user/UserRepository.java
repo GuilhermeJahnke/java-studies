@@ -1,7 +1,7 @@
 package data.repository.user;
 
 
-import domain.entities.User.UserEntities;
+import domain.entities.user.UserEntities;
 
 import java.util.ArrayList;
 import java.util.Objects;

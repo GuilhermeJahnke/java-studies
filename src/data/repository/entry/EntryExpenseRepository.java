@@ -1,7 +1,6 @@
-package data.repository.entrys;
+package data.repository.entry;
 
 
-import domain.entities.account.AccountEntities;
 import domain.entities.entry.EntryExpenseEntities;
 
 import java.util.ArrayList;
