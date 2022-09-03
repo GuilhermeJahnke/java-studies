@@ -4,11 +4,12 @@ package data.repository.user;
 import domain.entities.User.UserEntities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserRepository {
     private final ArrayList<UserEntities> mockDataBase = new ArrayList<>();
 
-    public UserEntities findByName (String cpf){
+    public UserEntities findByCpf(String cpf){
         for (UserEntities userEntity : mockDataBase) {
             if (userEntity.getCpf().equals(cpf)) return userEntity;
         }
@@ -26,7 +27,7 @@ public class UserRepository {
     }
 
     public UserEntities editUser(String name, String email, String cpf, String password) {
-        UserEntities userEdit = findByName(cpf);
+        UserEntities userEdit = findByCpf(cpf);
 
         userEdit.setName(name);
         userEdit.setEmail(email);
@@ -37,10 +38,23 @@ public class UserRepository {
     }
 
     public void removeUser(String cpf) {
-        mockDataBase.remove(findByName(cpf));
+        mockDataBase.remove(findByCpf(cpf));
     }
 
     public ArrayList<UserEntities> getAll() {
         return mockDataBase;
     }
+
+    public UserEntities login(String cpf, String password){
+        UserEntities userFind = findByCpf(cpf);
+        if(userFind == null){ throw new IllegalArgumentException("Usuário não encontrado"); }
+
+        if(Objects.equals(userFind.getCpf(), cpf) && Objects.equals(userFind.getPassword(), password)) {
+            return userFind;
+        }
+
+        throw new IllegalArgumentException("Usuário não encontrado");
+
+    }
+
 }
