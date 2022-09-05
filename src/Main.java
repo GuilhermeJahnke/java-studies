@@ -46,7 +46,6 @@ public class Main {
                 case option6 -> finishedLooping = false;
             }
         }
-        ;
 
         System.out.println("\nINTEGRANTES");
 
