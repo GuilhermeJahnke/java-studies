@@ -45,16 +45,17 @@ public class Main {
                 case option5 -> getAllAccount();
                 case option6 -> finishedLooping = false;
             }
-        };
+        }
+        ;
 
-        System.out.println("\nINTEGRANTES\n");
+        System.out.println("\nINTEGRANTES");
 
-        System.out.println("\nGuilherme Jahnke Vieira - RM: 93041");
-        System.out.println("\nThamires Aluiza dos Santos - RM: 94908");
-        System.out.println("\nGustavo Guilherme Silva de Souza - RM: 92923");
-        System.out.println("\nFilipe Souza Zapotoczny Costa - RM: 94285");
+        System.out.println("\n - Guilherme Jahnke Vieira - RM: 93041");
+        System.out.println("\n - Thamires Aluiza dos Santos - RM: 94908");
+        System.out.println("\n - Gustavo Guilherme Silva de Souza - RM: 92923");
+        System.out.println("\n - Filipe Souza Zapotoczny Costa - RM: 94285");
 
-        System.out.println("\nOBRIGADO POR TESTAR O SISTEMA DA NO COFFEE NO CODE\n");
+        System.out.println("\n\nOBRIGADO POR TESTAR O SISTEMA DA NO COFFEE NO CODE\n");
     }
 
     private static void createUser() {
@@ -75,7 +76,7 @@ public class Main {
         UserEntities user = userUseCase.create(userName, userEmail, userCpf, userPassword);
 
         System.out.println("\nParabéns cadastro realizado com sucesso! \n");
-        System.out.println(user);
+        System.out.println("Instancia criada:" + " " + user + "\n");
     }
 
     private static void loginUser() {
@@ -89,7 +90,7 @@ public class Main {
 
         UserEntities userLogged = userUseCase.login(loginCPF, loginPassword);
         System.out.println("\nUsuário logado com sucesso!\n");
-        System.out.println(userLogged);
+        System.out.println("Instancia criada:" + " " + userLogged + "\n");
     }
 
     private static void createAccount() {
@@ -103,19 +104,19 @@ public class Main {
 
         AccountEntities account = accountUseCase.create(accountName, accountBalance);
         System.out.println("\nNovo perfil registrado com sucesso!\n");
-        System.out.println(account);
+        System.out.println("Instancia criada:" + " " + account + "\n");
     }
 
     private static void getAllAccount() {
-        System.out.println("\n\nE também exibiremos todos os perfis registrados\n");
+        System.out.println("\nExibiremos todos os perfis registrados\n");
         ArrayList<AccountEntities> allAccounts = accountUseCase.getAll();
-        System.out.println(allAccounts);
+        System.out.println(allAccounts + "\n");
     }
 
     private static void getAllUser() {
-        System.out.println("\n\nAgora vamos exibir todos os usuarios registrados\n");
+        System.out.println("\nExibiremos todos os usuarios registrados\n");
         ArrayList<UserEntities> allUsers = userUseCase.getAll();
-        System.out.println(allUsers);
+        System.out.println(allUsers + "\n");
     }
 
 }
