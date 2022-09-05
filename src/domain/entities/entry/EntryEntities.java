@@ -1,7 +1,5 @@
 package domain.entities.entry;
 
-import java.time.LocalDateTime;
-
 public class EntryEntities {
     private double valor;
     private String date;
