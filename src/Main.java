@@ -13,21 +13,21 @@ public class Main {
 
     private static final Scanner in = new Scanner(System.in);
 
-    private static final int option1 = 1;
-    private static final int option2 = 2;
-    private static final int option3 = 3;
-    private static final int option4 = 4;
-    private static final int option5 = 5;
-    private static final int option6 = 6;
+    private static final int createUserOption = 1;
+    private static final int loginOption = 2;
+    private static final int createProfileOption = 3;
+    private static final int getAllUserOption = 4;
+    private static final int getAllProfileOption = 5;
+    private static final int exitOption = 6;
 
     public static void main(String... args) {
 
         System.out.println("\nBEM VINDO AO SISTEMA DA NO COFFEE NO CODE");
         System.out.println("\nVAMOS DAR INICIO AO SEU CADASTRO \n");
 
-        boolean finishedLooping = true;
+        boolean notFinishedLooping = true;
 
-        while (finishedLooping) {
+        while (notFinishedLooping) {
             System.out.println("Digite uma opção:");
             System.out.println("Digite [1] para se cadastrar:");
             System.out.println("Digite [2] para fazer login:");
@@ -38,12 +38,12 @@ public class Main {
             int selectedOption = in.nextInt();
 
             switch (selectedOption) {
-                case option1 -> createUser();
-                case option2 -> loginUser();
-                case option3 -> createAccount();
-                case option4 -> getAllUser();
-                case option5 -> getAllAccount();
-                case option6 -> finishedLooping = false;
+                case createUserOption -> createUser();
+                case loginOption -> loginUser();
+                case createProfileOption -> createAccount();
+                case getAllUserOption -> getAllUser();
+                case getAllProfileOption -> getAllAccount();
+                case exitOption -> notFinishedLooping = false;
             }
         }
 
@@ -58,18 +58,18 @@ public class Main {
     }
 
     private static void createUser() {
-        System.out.println("Vamos começar a criação de usuario");
+        System.out.println("\nVamos começar a criação de usuario\n");
 
         System.out.println("Digite seu nome:");
         String userName = in.next();
 
-        System.out.println("Digite seu email:");
+        System.out.println("\nDigite seu email:");
         String userEmail = in.next();
 
-        System.out.println("Digite seu cpf:");
+        System.out.println("\nDigite seu cpf:");
         String userCpf = in.next();
 
-        System.out.println("Digite sua senha:");
+        System.out.println("\nDigite sua senha:");
         String userPassword = in.next();
 
         UserEntities user = userUseCase.create(userName, userEmail, userCpf, userPassword);
