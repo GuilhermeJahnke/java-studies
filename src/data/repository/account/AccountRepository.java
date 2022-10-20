@@ -2,42 +2,118 @@ package data.repository.account;
 
 import domain.entities.account.AccountEntities;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AccountRepository {
-    private final ArrayList<AccountEntities> mockDataBase = new ArrayList<>();
+import data.connection.ConnectionDAO;
 
-    public AccountEntities findByName(String name) {
-        for (AccountEntities accountEntity : mockDataBase) {
-            if (accountEntity.getName().equals(name)) return accountEntity;
+public class AccountRepository {
+    ConnectionDAO connectionManager = new ConnectionDAO();
+
+    public AccountEntities findById(int id) {
+        PreparedStatement statement = null;
+		AccountEntities activities = null;
+
+        try {
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM TB_ACCOUNT WHERE ID_ACCOUNT = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                activities = new AccountEntities(
+                    resultSet.getString("NOME"),
+                    resultSet.getDouble("VALOR")
+                );
+            }
+
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activities;
+
+    }
+
+
+    public int createAccount(String name, double balance) {
+        
+        int affectedRows = 0;
+        PreparedStatement statement;
+        String sql = "INSERT INTO ACCOUNT (ACCOUNT_NAME, ACCOUNT_BALANCE) VALUES ( ?, ?)";
+
+        try {
+            statement = connectionManager.GetConnection().prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setDouble(2, balance);
+
+            affectedRows = connectionManager.ExecuteCommand(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        
+
+        return affectedRows;
+    }
+
+    public int editAccount(String name, double balance) {
+        int affectedRows = 0;
+        PreparedStatement statement;
+        String sql = "UPDATE ACCOUNT SET ACCOUNT_NAME = ?, balance = ?";
+
+        try {
+            statement = connectionManager.GetConnection().prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setDouble(2, balance);
+
+            affectedRows = connectionManager.ExecuteCommand(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        throw new IllegalArgumentException("Nenhuma conta encontrada com este nome");
+        return affectedRows;
     }
 
+    public int removeAccount(int id) {
+        int affectedRows = 0;
+		PreparedStatement statement;
+        String sql = "DELETE FROM ACCOUNTS WHERE ID_ACCOUNT = ?";
 
-    public AccountEntities createAccount(String name, double balance) {
-        AccountEntities newAccount = new AccountEntities(name, balance);
+        try {
+            statement = connectionManager.GetConnection().prepareStatement(sql);
+            statement.setInt(1, id);
 
-        mockDataBase.add(newAccount);
+            affectedRows = connectionManager.ExecuteCommand(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        return newAccount;
-    }
-
-    public AccountEntities editAccount(String name, double balance) {
-        AccountEntities accountEdit = findByName(name);
-
-        accountEdit.setName(name);
-        accountEdit.setBalance(balance);
-
-        return accountEdit;
-    }
-
-    public void removeAccount(String name) {
-        mockDataBase.remove(findByName(name));
+        return affectedRows;
     }
 
     public ArrayList<AccountEntities> getAll() {
-        return mockDataBase;
+        ArrayList<AccountEntities> activitiesList = new ArrayList<>();
+        PreparedStatement statement = null;
+		AccountEntities activities = null;
+
+        try {
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM ACCOUNTS");
+            ResultSet result = connectionManager.GetData(statement);
+
+            while (result.next()) {
+                activities = new AccountEntities(
+                    result.getString("ACCOUNT_NAME"),
+                    result.getDouble("ACCOUNT_BALANCE")
+                );
+                activitiesList.add(activities);
+            }
+
+            result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return activitiesList;
     }
 }

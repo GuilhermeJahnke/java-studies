@@ -3,12 +3,13 @@ package data.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
   
   public class ConnectionDAO {
     private Connection connection;
   
-    public ConnectionDAO() throws ClassNotFoundException {
+    public ConnectionDAO() {
         System.out.println("Inicio");
       try {
          Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -55,6 +56,18 @@ import java.sql.SQLException;
       }
   
       return affectedRows;
+    }
+
+    public ResultSet GetData(PreparedStatement statement) {
+      ResultSet result = null;
+  
+      try {
+        result = statement.executeQuery();
+      } catch (SQLException e) {
+  
+        e.printStackTrace();
+      } 
+      return result;
     }
 
   }
