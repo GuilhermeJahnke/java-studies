@@ -24,22 +24,24 @@ public class AccountUseCase {
 
     public AccountEntities create(String name, double balance) {
         verifyAllIsEmpty(name, balance);
+        AccountEntities accountInstance = new AccountEntities(name, balance);
 
-        return repository.createAccount(name, balance);
+        int isAccountCreated = repository.createAccount(accountInstance);
+
+        if(isAccountCreated == 0) {
+            throw new IllegalArgumentException("Não foi possível criar a conta");
+        }
+        return accountInstance;
     }
 
-    public AccountEntities edit(String name, double balance) {
+    public int edit(String name, double balance) {
         verifyAllIsEmpty(name, balance);
 
         return repository.editAccount(name, balance);
     }
 
-    public void remove(String name) {
-        if (Utils.isEmptyParams(name)) {
-            throw new IllegalArgumentException("O [name] não pode ser vazio, digite corretamente");
-        }
-
-        repository.removeAccount(name);
+    public int remove(int id) {
+        return repository.removeAccount(id);
     }
 
     public ArrayList<AccountEntities> getAll() {

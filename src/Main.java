@@ -103,7 +103,7 @@ public class Main {
 
         AccountEntities account = accountUseCase.create(accountName, accountBalance);
         System.out.println("\nNovo perfil registrado com sucesso!\n");
-        System.out.println("Instancia criada:" + " " + account + "\n");
+        System.out.println("Instancia criada:" + " " + account.getName() + "\n");
     }
 
     private static void getAllAccount() {
