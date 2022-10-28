@@ -38,28 +38,44 @@ public class EntryExpenseUseCase {
     }
 
 
-    public int create(boolean received, String receivedDate, double valor, String date,
-                      String category, String description) {
+    public EntryExpenseEntities create(boolean received, String receivedDate, double valor, String date,
+                                       String category, String description) {
 
         verifyAllIsEmpty(received, receivedDate, valor, date, category, description);
 
-        return repository.createEntryExpense(received, receivedDate, valor, date, category, description);
+        EntryExpenseEntities EntryExpenseInstance = new EntryExpenseEntities(received, receivedDate, valor, date, category, description);
+
+        int isExpenseCreated = repository.createEntryExpense(EntryExpenseInstance);
+
+        if(isExpenseCreated == 0) {
+            throw new IllegalArgumentException("Não foi possível criar a despesa");
+        }
+
+        return EntryExpenseInstance;
     }
 
-    public int edit(boolean received, String receivedDate, String description, double valor,
-                    String date, String category) {
+    public EntryExpenseEntities edit(boolean received, String receivedDate, String description, double valor,
+                                     String date, String category) {
 
         verifyAllIsEmpty(received, receivedDate, valor, date, category, description);
 
-        return repository.editEntryExpense( 1, received, receivedDate, description, valor, date, category);
+        EntryExpenseEntities EntryExpenseInstance = new EntryExpenseEntities(received, receivedDate, valor, date, category, description);
+
+        int isExpenseEdited = repository.editEntryExpense(EntryExpenseInstance);
+
+        if(isExpenseEdited == 0) {
+            throw new IllegalArgumentException("Não foi possível editar a despesa");
+        }
+
+        return EntryExpenseInstance;
     }
 
     public void remove(int id) {
-        if (Utils.isEmptyParams(String.valueOf(id))) {
-            throw new IllegalArgumentException("O [description] não pode ser vazio, digite corretamente");
-        }
+        int isExpenseDeleted = repository.removeEntryExpense(id);
 
-        repository.removeEntryExpense(id);
+        if(isExpenseDeleted == 0) {
+            throw new IllegalArgumentException("Não foi possível remover a despesa");
+        }
     }
 
     public ArrayList<EntryExpenseEntities> getAll() {

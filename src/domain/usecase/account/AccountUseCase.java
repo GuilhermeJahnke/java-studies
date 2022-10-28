@@ -22,10 +22,15 @@ public class AccountUseCase {
         }
     }
 
-    public int create(String name, double balance) {
+    public AccountEntities create(String name, double balance) {
         verifyAllIsEmpty(name, balance);
+        AccountEntities accountInstance = new AccountEntities( 1, name, balance);
+        int isAccountCreated = repository.createAccount(accountInstance);
 
-        return repository.createAccount(name, balance);
+        if(isAccountCreated == 0) {
+            throw new IllegalArgumentException("Não foi possível criar a conta");
+        }
+        return accountInstance;
     }
 
     public int edit(String name, double balance) {

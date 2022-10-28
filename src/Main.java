@@ -104,7 +104,7 @@ public class Main {
         System.out.println("Digite o saldo da sua conta \n Exemplo: 1.800,00");
         double accountBalance = in.nextDouble();
 
-        int account = accountUseCase.create(accountName, accountBalance);
+        AccountEntities account = accountUseCase.create(accountName, accountBalance);
         System.out.println("\nNovo perfil registrado com sucesso!\n");
         System.out.println("Instancia criada:" + " " + account + "\n");
     }

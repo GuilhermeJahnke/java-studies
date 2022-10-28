@@ -42,20 +42,19 @@ public class EntryExpenseRepository {
     }
 
 
-    public int createEntryExpense(boolean received, String receivedDate, double valor,
-                                  String date, String category, String description) {
+    public int createEntryExpense(EntryExpenseEntities EntryExpenseEntity) {
         int affectedRows = 0;
         PreparedStatement statement;
         String sql = "INSERT INTO T_ENTRY_EXPENSE (EXP_RECEIVED, EXP_RECEIVED_DATE, EXP_VALOR, EXP_DATE, EXP_CATEGORY, EXP_DESCRIPTION) VALUES ( ?,?,?,?,?,?,?)";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
-            statement.setBoolean(1, received);
-            statement.setString(2, receivedDate);
-            statement.setDouble(3, valor);
-            statement.setString(4, date);
-            statement.setString(5, category);
-            statement.setString(6, description);
+            statement.setBoolean(1, EntryExpenseEntity.getReceived());
+            statement.setString(2, EntryExpenseEntity.getReceivedDate());
+            statement.setDouble(3, EntryExpenseEntity.getValor());
+            statement.setString(4, EntryExpenseEntity.getDate());
+            statement.setString(5, EntryExpenseEntity.getCategory());
+            statement.setString(6, EntryExpenseEntity.getDescription());
             affectedRows = connectionManager.ExecuteCommand(statement);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,8 +63,7 @@ public class EntryExpenseRepository {
         return affectedRows;
     }
 
-    public int editEntryExpense(int id, boolean received, String receivedDate, String description, double valor,
-                                String date, String category) {
+    public int editEntryExpense(EntryExpenseEntities EntryExpenseEntity) {
 
         int affectedRows = 0;
         PreparedStatement statement;
@@ -73,16 +71,16 @@ public class EntryExpenseRepository {
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
-            statement.setBoolean(1, received);
-            statement.setString(2, receivedDate);
-            statement.setString(3, description);
-            statement.setDouble(4, valor);
-            statement.setString(5, date);
-            statement.setString(6, category);
+            statement.setBoolean(1, EntryExpenseEntity.getReceived());
+            statement.setString(2, EntryExpenseEntity.getReceivedDate());
+            statement.setDouble(3, EntryExpenseEntity.getValor());
+            statement.setString(4,  EntryExpenseEntity.getDate());
+            statement.setString(5, EntryExpenseEntity.getCategory());
+            statement.setString(6, EntryExpenseEntity.getDescription());
 
+            affectedRows = connectionManager.ExecuteCommand(statement);
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
 
         return affectedRows;

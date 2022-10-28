@@ -38,7 +38,7 @@ public class AccountRepository {
     }
 
 
-    public int createAccount(String name, double balance) {
+    public int createAccount(AccountEntities account) {
 
         int affectedRows = 0;
         PreparedStatement statement;
@@ -46,8 +46,8 @@ public class AccountRepository {
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setDouble(2, balance);
+            statement.setString(1, account.getName());
+            statement.setDouble(2, account.getBalance());
 
             affectedRows = connectionManager.ExecuteCommand(statement);
         } catch (SQLException e) {
