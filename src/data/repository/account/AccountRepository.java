@@ -17,14 +17,14 @@ public class AccountRepository {
 		AccountEntities activities = null;
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM TB_ACCOUNT WHERE ID_ACCOUNT = ?");
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ACCOUNT WHERE ID_ACCOUNT = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 activities = new AccountEntities(
-                    resultSet.getString("NOME"),
-                    resultSet.getDouble("VALOR")
+                    resultSet.getString("NM_NAME"),
+                    resultSet.getDouble("BL_BALANCE")
                 );
             }
 
@@ -41,7 +41,7 @@ public class AccountRepository {
         
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "INSERT INTO ACCOUNT (ACCOUNT_NAME, ACCOUNT_BALANCE) VALUES ( ?, ?)";
+        String sql = "INSERT INTO T_ACCOUNT (NM_NAME, BL_BALANCE) VALUES ( ?, ?)";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -60,7 +60,7 @@ public class AccountRepository {
     public int editAccount(String name, double balance) {
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "UPDATE ACCOUNT SET ACCOUNT_NAME = ?, balance = ?";
+        String sql = "UPDATE T_ACCOUNT SET NM_NAME = ?, BL_BALANCE = ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -78,7 +78,7 @@ public class AccountRepository {
     public int removeAccount(int id) {
         int affectedRows = 0;
 		PreparedStatement statement;
-        String sql = "DELETE FROM ACCOUNTS WHERE ID_ACCOUNT = ?";
+        String sql = "DELETE FROM T_ACCOUNT WHERE ID_ACCOUNT = ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -98,7 +98,7 @@ public class AccountRepository {
 		AccountEntities activities = null;
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM ACCOUNTS");
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ACCOUNT");
             ResultSet result = connectionManager.GetData(statement);
 
             while (result.next()) {

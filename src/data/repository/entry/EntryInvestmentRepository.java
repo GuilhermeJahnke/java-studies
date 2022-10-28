@@ -10,40 +10,40 @@ import java.sql.SQLException;
 public class EntryInvestmentRepository {
     ConnectionDAO connectionManager = new ConnectionDAO();
 
-    public EntryInvestmentEntities findByDescription(int id) {
+    public EntryInvestmentEntities findByDId(int id) {
         PrepareStatement statement = null;
         EntryInvestmentEntities entryinv = null;
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FINTECH_ENTRYINVESTMENT WHERE ID_INVESTMENT = ?")
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ENTRY_INVESTMENT WHERE ID_INVESTMENT = ?")
             statement.setInt(1,id)
             ResultSet ResultSet= statement.executeQuery();
 
             while(resulteSet.next()){
                 entryinv = new EntryInvestmentEntities(
-                    resulteSet.getBoolean("INV_RESCUED"),
-                    resulteSet.getString("INV_DUE_DATE"),
-                    resulteSet.getDouble("INV_AMOUNT_INCOME"),
-                    resulteSet.getString("INV_DESCRIPTION"),
-                    resulteSet.getDouble("INV_VALOR"),
-                    resulteSet.getString("ID_INVESTMENT"),
-                    resulteSet.getDate("INV_DATE"),
-                    resulteSet.getString("INV_CATEGORY")
+                        resulteSet.getBoolean("INV_RESCUED"),
+                        resulteSet.getString("INV_DUE_DATE"),
+                        resulteSet.getDouble("INV_AMOUNT_INCOME"),
+                        resulteSet.getString("INV_DESCRIPTION"),
+                        resulteSet.getDouble("INV_VALOR"),
+                        resulteSet.getString("ID_INVESTMENT"),
+                        resulteSet.getDate("INV_DATE"),
+                        resulteSet.getString("INV_CATEGORY")
                 );
             }
             resulteSet.close();
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
     }
 
 
     public int createEntryInvestment(boolean rescued, String dueDate, Double amountIncome, double valor,
-                                                         String date, String category, String description) {
-        int affectedRows = 0;    
-        PreparedStatement statement;  
-        String sql = "INSERT INTO T_FINTECH_ENTRYINVESTMENT (RESCUED, DUEDATE, AMOUNTINCOME, VALOR, DATE, CATEGORY, DESCRIPTION) VALUES ( ?,?,?,?,?,?,?)";     
-        
+                                     String date, String category, String description) {
+        int affectedRows = 0;
+        PreparedStatement statement;
+        String sql = "INSERT INTO T_ENTRY_INVESTMENT (INV_RESCUED, INV_DUE_DATE, INV_AMOUNT_INCOME, INV_DESCRIPTION, INV_VALOR, INV_DATE, INV_CATEGORY) VALUES ( ?,?,?,?,?,?,?)";
+
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
             statement.setBoolean(1, rescued);
@@ -56,10 +56,10 @@ public class EntryInvestmentRepository {
             affectedRows = connectionManager.ExecuteCommand(statement);
         } catch (SQLException e) {
             e.printStackTrace();
-        } 
-        
+        }
+
         return affectedRows;
-        
+
     }
 
     public EntryInvestmentEntities editEntryInvestment(Double amountIncome, boolean rescued, String dueDate, String description,
@@ -78,8 +78,21 @@ public class EntryInvestmentRepository {
         return investmentEdit;
     }
 
-    public void removeEntryInvestment(String description) {
-        mockDataBase.remove(findByDescription(description));
+    public int removeEntryInvestment(String description) {
+        int affectedRows = 0;
+        PreparedStatement statement;
+        String sql = "DELETE FROM T_ENTRY_INVESTMENT WHERE ID_INVESTMENT = ?";
+
+        try {
+            statement = connectionManager.GetConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+
+            affectedRows = connectionManager.ExecuteCommand(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return affectedRows;
     }
 
     public ArrayList<EntryInvestmentEntities> getAll() {
@@ -88,18 +101,19 @@ public class EntryInvestmentRepository {
         EntryInvestmentEntities investment = null
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FINTECH_ENTRYINVESTMENT");
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ENTRY_INVESTMENT");
             ResultSet result = connectionManager.GetData(statement);
 
             while (result.next()) {
                 investment = new EntryInvestmentEntities(
-                    result.getValor("valor");
-                    result.getDate("date");
-                    result.getCategory("category");
-                    result.getDescription("description");
-                    result.getAmountIncome("amountIncome");
-                    result.getRescued("rescued");
-                    result.getDueDate("dueDate");
+                        resulteSet.getBoolean("INV_RESCUED"),
+                        resulteSet.getString("INV_DUE_DATE"),
+                        resulteSet.getDouble("INV_AMOUNT_INCOME"),
+                        resulteSet.getString("INV_DESCRIPTION"),
+                        resulteSet.getDouble("INV_VALOR"),
+                        resulteSet.getString("ID_INVESTMENT"),
+                        resulteSet.getDate("INV_DATE"),
+                        resulteSet.getString("INV_CATEGORY")
                 );
                 investmentList.add(activities);
             }
@@ -108,7 +122,7 @@ public class EntryInvestmentRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return investmentList;
     }
 }
