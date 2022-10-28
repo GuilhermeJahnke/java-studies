@@ -2,30 +2,64 @@ package data.repository.entry;
 
 
 import domain.entities.entry.EntryInvestmentEntities;
-
-import java.util.ArrayList;
+import data.connection.ConnectionDAO;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EntryInvestmentRepository {
-    private final ArrayList<EntryInvestmentEntities> mockDataBase = new ArrayList<>();
+    ConnectionDAO connectionManager = new ConnectionDAO();
 
-    public EntryInvestmentEntities findByDescription(String description) {
-        for (EntryInvestmentEntities entryInvestmentEntities : mockDataBase) {
-            if (entryInvestmentEntities.getDescription().equals(description)) return entryInvestmentEntities;
+    public EntryInvestmentEntities findByDescription(int id) {
+        PrepareStatement statement = null;
+        EntryInvestmentEntities entryinv = null;
+
+        try {
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FINTECH_ENTRYINVESTMENT WHERE ID_INVESTMENT = ?")
+            statement.setInt(1,id)
+            ResultSet ResultSet= statement.executeQuery();
+
+            while(resulteSet.next()){
+                entryinv = new EntryInvestmentEntities(
+                    resulteSet.getBoolean("INV_RESCUED"),
+                    resulteSet.getString("INV_DUE_DATE"),
+                    resulteSet.getDouble("INV_AMOUNT_INCOME"),
+                    resulteSet.getString("INV_DESCRIPTION"),
+                    resulteSet.getDouble("INV_VALOR"),
+                    resulteSet.getString("ID_INVESTMENT"),
+                    resulteSet.getDate("INV_DATE"),
+                    resulteSet.getString("INV_CATEGORY")
+                );
+            }
+            resulteSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace(); 
         }
-
-        throw new IllegalArgumentException("Nenhum lançamento de investimento encontrado com esta descrição");
     }
 
 
-    public EntryInvestmentEntities createEntryInvestment(boolean rescued, String dueDate, Double amountIncome, double valor,
+    public int createEntryInvestment(boolean rescued, String dueDate, Double amountIncome, double valor,
                                                          String date, String category, String description) {
-
-        EntryInvestmentEntities newEntrInvestment = new EntryInvestmentEntities(rescued, dueDate, amountIncome, valor,
-                date, category, description);
-
-        mockDataBase.add(newEntrInvestment);
-
-        return newEntrInvestment;
+        int affectedRows = 0;    
+        PreparedStatement statement;  
+        String sql = "INSERT INTO T_FINTECH_ENTRYINVESTMENT (RESCUED, DUEDATE, AMOUNTINCOME, VALOR, DATE, CATEGORY, DESCRIPTION) VALUES ( ?,?,?,?,?,?,?)";     
+        
+        try {
+            statement = connectionManager.GetConnection().prepareStatement(sql);
+            statement.setBoolean(1, rescued);
+            statement.setString(2, dueDate);
+            statement.setDouble(3, amountIncome);
+            statement.setDouble(4, valor);
+            statement.setString(5, date);
+            statement.setString(6, category);
+            statement.setString(7, description);
+            affectedRows = connectionManager.ExecuteCommand(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        
+        return affectedRows;
+        
     }
 
     public EntryInvestmentEntities editEntryInvestment(Double amountIncome, boolean rescued, String dueDate, String description,
@@ -49,6 +83,32 @@ public class EntryInvestmentRepository {
     }
 
     public ArrayList<EntryInvestmentEntities> getAll() {
-        return mockDataBase;
+        ArrayList<EntryInvestmentEntities> investmentList = new ArrayList<>();
+        PrepareStatement statement;
+        EntryInvestmentEntities investment = null
+
+        try {
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FINTECH_ENTRYINVESTMENT");
+            ResultSet result = connectionManager.GetData(statement);
+
+            while (result.next()) {
+                investment = new EntryInvestmentEntities(
+                    result.getValor("valor");
+                    result.getDate("date");
+                    result.getCategory("category");
+                    result.getDescription("description");
+                    result.getAmountIncome("amountIncome");
+                    result.getRescued("rescued");
+                    result.getDueDate("dueDate");
+                );
+                investmentList.add(activities);
+            }
+
+            result.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return investmentList;
     }
 }
