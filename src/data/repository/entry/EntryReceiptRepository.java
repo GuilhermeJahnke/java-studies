@@ -1,5 +1,6 @@
 package data.repository.entry;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,12 +23,12 @@ public class EntryReceiptRepository {
 
             while (resultSet.next()) {
                 activities = new EntryReceiptEntities(
-                    resultSet.getBoolean("received"),
-                    resultSet.getString("receivedDate"),
-                    resultSet.getDouble("valor"),
-                    resultSet.getString("date"),
-                    resultSet.getString("category"),
-                    resultSet.getString("description")
+                    resultSet.getBoolean("REC_RECEIVED"),
+                    resultSet.getString("REC_RECEIVED_DATE"),
+                    resultSet.getDouble("REC_VALOR"),
+                    resultSet.getString("REC_DATE"),
+                    resultSet.getString("REC_CATEGORY"),
+                    resultSet.getString("REC_DESCRIPITION")
                 );
             }
 
@@ -39,8 +40,8 @@ public class EntryReceiptRepository {
 
     }    
     
-    public int createEntryReceipt(boolean received, String receivedDate, double valor, String date, String category,
-    String description) {
+    public int createEntryReceipt(boolean REC_RECEIVED, Date REC_RECEIVED_DATE, double REC_VALOR, Date REC_DATE, String REC_CATEGORY,
+    String REC_DESCRIPITION) {
         
         int affectedRows = 0;
         PreparedStatement statement;
@@ -48,12 +49,12 @@ public class EntryReceiptRepository {
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
-            statement.setBoolean(1, received);
-            statement.setString(2, receivedDate);
-            statement.setDouble(3, valor);
-            statement.setString(4, date);
-            statement.setString(5, category);
-            statement.setString(6, description);
+            statement.setBoolean(1, REC_RECEIVED);
+            statement.setDate(2, REC_RECEIVED_DATE);
+            statement.setDouble(3, REC_VALOR);
+            statement.setDate(4, REC_DATE);
+            statement.setString(5, REC_CATEGORY);
+            statement.setString(6, REC_DESCRIPITION);
 
             affectedRows = connectionManager.ExecuteCommand(statement);
         } catch (SQLException e) {
@@ -63,20 +64,20 @@ public class EntryReceiptRepository {
         return affectedRows;
     }
 
-    public int editEntryReceipt(boolean received, String receivedDate, String description,
-    double valor, String date, String category) {
+    public int editEntryReceipt(boolean REC_RECEIVED, Date REC_RECEIVED_DATE, String REC_DESCRIPITION,
+    double REC_VALOR, Date REC_DATE, String REC_CATEGORY) {
         int affectedRows = 0;
         PreparedStatement statement;
         String sql = "UPDATE T_ENTREY_RECEPT SET REC_RECEIVED, REC_RECIVED_DATE, REC_VALOR, REC_DATE, REC_CATEGORY, REC_DESCRIPTION = ?, balance = ?, ?, ?, ?, ?, ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
-            statement.setBoolean(1, received);
-            statement.setString(2, receivedDate);
-            statement.setDouble(3, valor);
-            statement.setString(4, date);
-            statement.setString(5, category);
-            statement.setString(6, description);
+            statement.setBoolean(1, REC_RECEIVED);
+            statement.setDate(2, REC_RECEIVED_DATE);
+            statement.setDouble(3, REC_VALOR);
+            statement.setDate(4, REC_DATE);
+            statement.setString(5, REC_CATEGORY);
+            statement.setString(6, REC_DESCRIPITION);
 
             affectedRows = connectionManager.ExecuteCommand(statement);
         } catch (SQLException e) {
@@ -114,12 +115,12 @@ public class EntryReceiptRepository {
 
             while (result.next()) {
                 activities = new EntryReceiptEntities(
-                    result.getBoolean("received"),
-                    result.getString("receivedDate"),
-                    result.getDouble("valor"),
-                    result.getString("date"),
-                    result.getString("category"),
-                    result.getString("description")
+                    result.getBoolean("REC_RECEIVED"),
+                    result.getString("REC_RECEIVED_DATE"),
+                    result.getDouble("REC_VALOR"),
+                    result.getString("REC_DATE"),
+                    result.getString("REC_CATEGORY"),
+                    result.getString("REC_DESCRIPITION")
                 );
                 activitiesList.add(activities);
             }
