@@ -16,7 +16,7 @@ public class EntryReceiptRepository {
 		EntryReceiptEntities activities = null;
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ENTRY_RECEIPT WHERE ID_ENTRY = ?");
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ENTRY_RECEIPT WHERE ID_RECEIPT = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
@@ -44,7 +44,7 @@ public class EntryReceiptRepository {
         
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "INSERT INTO T_ENTRY_RECEIPT (RECEBPT_RECEIVED, RECEBPT_RECIVED_DATE, RECEBPT_VALOR, RECEBPT_DATE, RECEBPT_CATEGORY, RECEBPT_DESCRIPTION) VALUES ( ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO T_ENTRY_RECEIPT (REC_RECEIVED, REC_RECIVED_DATE, REC_VALOR, REC_DATE, REC_CATEGORY, REC_DESCRIPTION) VALUES ( ?, ?, ?, ?, ?, ?)";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -67,7 +67,7 @@ public class EntryReceiptRepository {
     double valor, String date, String category) {
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "UPDATE T_ENTREY_RECEPT SET RECEBPT_RECEIVED, RECEBPT_RECIVED_DATE, RECEBPT_VALOR, RECEBPT_DATE, RECEBPT_CATEGORY, RECEBPT_DESCRIPTION = ?, balance = ?, ?, ?, ?, ?, ?";
+        String sql = "UPDATE T_ENTREY_RECEPT SET REC_RECEIVED, REC_RECIVED_DATE, REC_VALOR, REC_DATE, REC_CATEGORY, REC_DESCRIPTION = ?, balance = ?, ?, ?, ?, ?, ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -89,7 +89,7 @@ public class EntryReceiptRepository {
     public int removeEntryReceipt(int id) {
         int affectedRows = 0;
 		PreparedStatement statement;
-        String sql = "DELETE FROM T_ENTRY_RECEIPT WHERE ID_ENTRY = ?";
+        String sql = "DELETE FROM T_ENTRY_RECEIPT WHERE ID_RECEIPT = ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
