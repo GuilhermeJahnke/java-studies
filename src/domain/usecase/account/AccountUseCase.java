@@ -22,13 +22,13 @@ public class AccountUseCase {
         }
     }
 
-    public AccountEntities create(String name, double balance) {
+    public int create(String name, double balance) {
         verifyAllIsEmpty(name, balance);
 
         return repository.createAccount(name, balance);
     }
 
-    public AccountEntities edit(String name, double balance) {
+    public int edit(String name, double balance) {
         verifyAllIsEmpty(name, balance);
 
         return repository.editAccount(name, balance);
@@ -39,7 +39,7 @@ public class AccountUseCase {
             throw new IllegalArgumentException("O [name] não pode ser vazio, digite corretamente");
         }
 
-        repository.removeAccount(name);
+        repository.removeAccount(1);
     }
 
     public ArrayList<AccountEntities> getAll() {

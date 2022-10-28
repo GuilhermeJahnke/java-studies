@@ -23,8 +23,9 @@ public class AccountRepository {
 
             while (resultSet.next()) {
                 activities = new AccountEntities(
-                    resultSet.getString("NOME"),
-                    resultSet.getDouble("VALOR")
+                        resultSet.getInt("ID_ACCOUNT"),
+                    resultSet.getString("NM_NAME"),
+                    resultSet.getDouble("BL_BALANCE")
                 );
             }
 
@@ -41,7 +42,7 @@ public class AccountRepository {
         
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "INSERT INTO ACCOUNT (ACCOUNT_NAME, ACCOUNT_BALANCE) VALUES ( ?, ?)";
+        String sql = "INSERT INTO ACCOUNT ( NM_NAME, BL_BALANCE) VALUES ( ?, ?)";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -60,7 +61,7 @@ public class AccountRepository {
     public int editAccount(String name, double balance) {
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "UPDATE ACCOUNT SET ACCOUNT_NAME = ?, balance = ?";
+        String sql = "UPDATE ACCOUNT SET NM_NAME = ?, BL_BALANCE = ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -103,8 +104,9 @@ public class AccountRepository {
 
             while (result.next()) {
                 activities = new AccountEntities(
-                    result.getString("ACCOUNT_NAME"),
-                    result.getDouble("ACCOUNT_BALANCE")
+                        result.getInt("ID_ACCOUNT"),
+                    result.getString("NM_NAME"),
+                    result.getDouble("BL_BALANCE")
                 );
                 activitiesList.add(activities);
             }

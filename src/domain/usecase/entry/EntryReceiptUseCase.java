@@ -36,7 +36,7 @@ public class EntryReceiptUseCase {
         }
     }
 
-    public EntryReceiptEntities create(boolean received, String receiptDate, double valor, String date,
+    public int create(boolean received, String receiptDate, double valor, String date,
                                        String category, String description) {
 
         verifyAllIsEmpty(received, receiptDate, valor, date, category, description);
@@ -44,7 +44,7 @@ public class EntryReceiptUseCase {
         return repository.createEntryReceipt(received, receiptDate, valor, date, category, description);
     }
 
-    public EntryReceiptEntities edit(boolean received, String receiptDate, String description, double valor, String date,
+    public int edit(boolean received, String receiptDate, String description, double valor, String date,
                                      String category) {
 
         verifyAllIsEmpty(received, receiptDate, valor, date, category, description);
@@ -57,7 +57,7 @@ public class EntryReceiptUseCase {
             throw new IllegalArgumentException("O [description] não pode ser vazio, digite corretamente");
         }
         
-        repository.removeEntryReceipt(description);
+        repository.removeEntryReceipt(1);
     }
 
     public ArrayList<EntryReceiptEntities> getAll() {

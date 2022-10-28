@@ -1,12 +1,18 @@
 package domain.entities.account;
 
 public class AccountEntities {
+    private int id;
     private String name;
     private double balance;
 
-    public AccountEntities(String name, double balance) {
+    public AccountEntities(int id, String name, double balance) {
+        this.id = id;
         this.name = name;
         this.balance = balance;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -15,6 +21,10 @@ public class AccountEntities {
 
     public double getBalance() {
         return balance;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -27,8 +37,9 @@ public class AccountEntities {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "name='" + name + '\'' +
+        return "AccountEntities{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", balance=" + balance +
                 '}';
     }

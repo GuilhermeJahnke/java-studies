@@ -1,3 +1,4 @@
+import data.connection.ConnectionDAO;
 import domain.entities.account.AccountEntities;
 import domain.entities.user.UserEntities;
 import domain.usecase.account.AccountUseCase;
@@ -27,23 +28,25 @@ public class Main {
 
         boolean notFinishedLooping = true;
 
+
         while (notFinishedLooping) {
             System.out.println("Digite uma opção:");
-            System.out.println("Digite [1] para se cadastrar:");
-            System.out.println("Digite [2] para fazer login:");
+//            System.out.println("Digite [1] para se cadastrar:");
+//            System.out.println("Digite [2] para fazer login:");
             System.out.println("Digite [3] para cadastrar um perfil:");
             System.out.println("Digite [4] para listar todos os usuarios:");
             System.out.println("Digite [5] para listar todos os perfis:");
             System.out.println("Digite [6] para sair:");
             int selectedOption = in.nextInt();
 
+
             switch (selectedOption) {
-                case createUserOption -> createUser();
-                case loginOption -> loginUser();
-                case createProfileOption -> createAccount();
-                case getAllUserOption -> getAllUser();
-                case getAllProfileOption -> getAllAccount();
-                case exitOption -> notFinishedLooping = false;
+//                case createUserOption: createUser();
+//                case loginOption: loginUser();
+                case createProfileOption: createAccount();
+                case getAllUserOption: getAllUser();
+                case getAllProfileOption: getAllAccount();
+                case exitOption: notFinishedLooping = false;
             }
         }
 
@@ -101,7 +104,7 @@ public class Main {
         System.out.println("Digite o saldo da sua conta \n Exemplo: 1.800,00");
         double accountBalance = in.nextDouble();
 
-        AccountEntities account = accountUseCase.create(accountName, accountBalance);
+        int account = accountUseCase.create(accountName, accountBalance);
         System.out.println("\nNovo perfil registrado com sucesso!\n");
         System.out.println("Instancia criada:" + " " + account + "\n");
     }
