@@ -42,8 +42,16 @@ public class EntryExpenseUseCase {
                                        String category, String description) {
 
         verifyAllIsEmpty(received, receivedDate, valor, date, category, description);
+        
+        EntryExpenseEntities EntryExpenseInstance = new EntryExpenseEntities(received, receivedDate, valor, date, category, description);
+        
+        int isExpenseCreated = repository.createEntryExpense(EntryExpenseInstance);
+        
+        if(isExpenseCreated == 0) {
+            throw new IllegalArgumentException("Não foi possível criar a despesa");
+        }
 
-        return repository.createEntryExpense(received, receivedDate, valor, date, category, description);
+        return EntryExpenseInstance;
     }
 
     public EntryExpenseEntities edit(boolean received, String receivedDate, String description, double valor,
@@ -51,15 +59,23 @@ public class EntryExpenseUseCase {
 
         verifyAllIsEmpty(received, receivedDate, valor, date, category, description);
 
-        return repository.editEntryExpense(received, receivedDate, description, valor, date, category);
-    }
+        EntryExpenseEntities EntryExpenseInstance = new EntryExpenseEntities(received, receivedDate, valor, date, category, description);
 
-    public void remove(String description) {
-        if (Utils.isEmptyParams(description)) {
-            throw new IllegalArgumentException("O [description] não pode ser vazio, digite corretamente");
+        int isExpenseEdited = repository.editEntryExpense(EntryExpenseInstance);
+
+        if(isExpenseEdited == 0) {
+            throw new IllegalArgumentException("Não foi possível editar a despesa");
         }
 
-        repository.removeEntryExpense(description);
+        return EntryExpenseInstance;
+    }
+
+    public void remove(int id) {
+        int isExpenseDeleted = repository.removeEntryExpense(id);
+
+        if(isExpenseDeleted == 0) {
+            throw new IllegalArgumentException("Não foi possível remover a despesa");
+        }
     }
 
     public ArrayList<EntryExpenseEntities> getAll() {
