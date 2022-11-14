@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class EntryReceiptUseCase {
     private final EntryReceiptRepository repository;
 
-    EntryReceiptUseCase() {
+    public EntryReceiptUseCase() {
         repository = new EntryReceiptRepository();
     }
 

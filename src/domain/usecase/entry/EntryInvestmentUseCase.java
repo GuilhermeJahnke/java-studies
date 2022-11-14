@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class EntryInvestmentUseCase {
     private final EntryInvestmentRepository repository;
 
-    private EntryInvestmentUseCase(){
+    public EntryInvestmentUseCase(){
         repository = new EntryInvestmentRepository();
     }
 
