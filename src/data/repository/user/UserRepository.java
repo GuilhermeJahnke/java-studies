@@ -9,12 +9,12 @@ import java.util.Objects;
 public class UserRepository {
     private final ArrayList<UserEntities> mockDataBase = new ArrayList<>();
 
-    public UserEntities findByCpf(String cpf){
+    public UserEntities findByEmail(String email){
         for (UserEntities userEntity : mockDataBase) {
-            if (userEntity.getCpf().equals(cpf)) return userEntity;
+            if (userEntity.getEmail().equals(email)) return userEntity;
         }
 
-        throw new IllegalArgumentException("Nenhum usuário encontrado com este cpf");
+        throw new IllegalArgumentException("Nenhum usuário encontrado com este email");
     }
 
 
@@ -27,7 +27,7 @@ public class UserRepository {
     }
 
     public UserEntities editUser(String name, String email, String cpf, String password) {
-        UserEntities userEdit = findByCpf(cpf);
+        UserEntities userEdit = findByEmail(cpf);
 
         userEdit.setName(name);
         userEdit.setEmail(email);
@@ -37,19 +37,19 @@ public class UserRepository {
         return userEdit;
     }
 
-    public void removeUser(String cpf) {
-        mockDataBase.remove(findByCpf(cpf));
+    public void removeUser(String email) {
+        mockDataBase.remove(findByEmail(email));
     }
 
     public ArrayList<UserEntities> getAll() {
         return mockDataBase;
     }
 
-    public UserEntities login(String cpf, String password){
-        UserEntities userFind = findByCpf(cpf);
+    public UserEntities login(String email, String password){
+        UserEntities userFind = findByEmail(email);
         if(userFind == null){ throw new IllegalArgumentException("Usuário não encontrado"); }
 
-        if(Objects.equals(userFind.getCpf(), cpf) && Objects.equals(userFind.getPassword(), password)) {
+        if(Objects.equals(userFind.getEmail(), email) && Objects.equals(userFind.getPassword(), password)) {
             return userFind;
         }
 

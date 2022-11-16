@@ -114,13 +114,13 @@ public class Main {
     private static void loginUser() {
         System.out.println("\nVamos dar início ao seu Login \n");
 
-        System.out.println("Digite seu cpf:");
-        String loginCPF = in.next();
+        System.out.println("Digite seu email:");
+        String loginEmail = in.next();
 
         System.out.println("Digite sua senha:");
         String loginPassword = in.next();
 
-        UserEntities userLogged = userUseCase.login(loginCPF, loginPassword);
+        UserEntities userLogged = userUseCase.login(loginEmail, loginPassword);
         System.out.println("\nUsuário logado com sucesso!\n");
         System.out.println("Instancia criada:" + " " + userLogged + "\n");
     }
@@ -137,7 +137,7 @@ public class Main {
         System.out.println("Digite o saldo da sua conta \n Exemplo: 1.800,00");
         double accountBalance = in.nextDouble();
 
-        AccountEntities account = accountUseCase.create(accountCpf, accountName, accountBalance);
+        AccountEntities account = accountUseCase.create(accountName, accountBalance);
         System.out.println("\nNovo perfil registrado com sucesso!\n");
         System.out.println("Instancia criada:" + " " + account + "\n");
     }

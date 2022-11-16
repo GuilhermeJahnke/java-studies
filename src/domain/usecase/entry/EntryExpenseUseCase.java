@@ -39,7 +39,7 @@ public class EntryExpenseUseCase {
 
 
     public EntryExpenseEntities create(boolean received, String receivedDate, double valor, String date,
-                                       String category, String description) {
+                                       String category, String description, final String id) {
 
         verifyAllIsEmpty(received, receivedDate, valor, date, category, description);
 
