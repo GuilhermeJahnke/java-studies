@@ -54,14 +54,14 @@ public class UserUseCase {
         return repository.getAll();
     }
 
-    public UserEntities login(String cpf, String password) {
-        if (Utils.isEmptyParams(cpf)) {
-            throw new IllegalArgumentException("O [CPF] não pode ser vazio, digite corretamente");
+    public UserEntities login(String email, String password) {
+        if (Utils.isEmptyParams(email)) {
+            throw new IllegalArgumentException("O [email] não pode ser vazio, digite corretamente");
         }
         if (Utils.isEmptyParams(password)) {
             throw new IllegalArgumentException("A [senha] não pode ser vazia, digite corretamente");
         }
 
-        return repository.login(cpf, password);
+        return repository.login(email, password);
     }
 }
