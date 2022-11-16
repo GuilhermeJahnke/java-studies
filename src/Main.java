@@ -137,9 +137,10 @@ public class Main {
         System.out.println("Digite o saldo da sua conta \n Exemplo: 1.800,00");
         double accountBalance = in.nextDouble();
 
+
         AccountEntities account = accountUseCase.create(accountName, accountBalance);
         System.out.println("\nNovo perfil registrado com sucesso!\n");
-        System.out.println("Instancia criada:" + " " + account + "\n");
+//        System.out.println("Instancia criada:" + " " + account + "\n");
     }
 
     private static void createExpense() {
@@ -173,10 +174,10 @@ public class Main {
             receivedBool = true;
         }
 
-        EntryExpenseEntities expense = expenseUseCase.create(receivedBool, receivedDate, amount, date, category, description, id);
+//        EntryExpenseEntities expense = expenseUseCase.create(receivedBool, receivedDate, amount, date, category, description, id);
 
         System.out.println("\nNova despesa registrada com sucesso!\n");
-        System.out.println("Instancia criada:" + " " + expense + "\n");
+//        System.out.println("Instancia criada:" + " " + expense + "\n");
     }
     private static void createInvestment() {
         System.out.println("\nAgora vamos registrar um investimento\n");

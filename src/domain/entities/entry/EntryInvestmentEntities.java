@@ -48,3 +48,4 @@ public class EntryInvestmentEntities extends EntryEntities {
                 '}';
     }
 }
+
