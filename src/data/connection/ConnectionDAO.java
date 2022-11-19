@@ -12,7 +12,7 @@ import java.sql.SQLException;
     public ConnectionDAO() {
         System.out.println("Inicio");
       try {
-//         Class.forName("oracle.jdbc.driver.OracleDriver");
+         Class.forName("oracle.jdbc.driver.OracleDriver");
          OpenConnection();
       } catch (Exception e) {
         e.printStackTrace();

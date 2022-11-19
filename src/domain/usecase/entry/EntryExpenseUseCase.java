@@ -13,7 +13,7 @@ public class EntryExpenseUseCase {
         repository = new EntryExpenseRepository();
     }
 
-    private void verifyAllIsEmpty(Boolean received, String receivedDate, Double valor, String date,
+    private void verifyAllIsEmpty(String received, String receivedDate, Double valor, String date,
                                   String category, String description) {
 
         if (Utils.isEmptyParams(received.toString())) {
@@ -38,7 +38,7 @@ public class EntryExpenseUseCase {
     }
 
 
-    public EntryExpenseEntities create(boolean received, String receivedDate, double valor, String date,
+    public EntryExpenseEntities create(String received, String receivedDate, double valor, String date,
                                        String category, String description, final String id) {
 
         verifyAllIsEmpty(received, receivedDate, valor, date, category, description);
@@ -54,7 +54,7 @@ public class EntryExpenseUseCase {
         return EntryExpenseInstance;
     }
 
-    public EntryExpenseEntities edit(boolean received, String receivedDate, String description, double valor,
+    public EntryExpenseEntities edit(String received, String receivedDate, String description, double valor,
                                      String date, String category) {
 
         verifyAllIsEmpty(received, receivedDate, valor, date, category, description);

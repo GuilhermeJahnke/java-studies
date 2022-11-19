@@ -2,10 +2,10 @@ package domain.entities.entry;
 
 public class EntryExpenseEntities extends EntryEntities {
 
-    private boolean received;
+    private String received;
     private String receivedDate;
 
-    public EntryExpenseEntities(boolean received, String receivedDate, double valor,
+    public EntryExpenseEntities(String received, String receivedDate, double valor,
                                 String date, String category, String description) {
 
         super(valor, date, category, description);
@@ -15,7 +15,7 @@ public class EntryExpenseEntities extends EntryEntities {
 
     }
 
-    public boolean getReceived() {
+    public String getReceived() {
         return received;
     }
 
@@ -23,7 +23,7 @@ public class EntryExpenseEntities extends EntryEntities {
         return receivedDate;
     }
 
-    public void setReceived(boolean received) {
+    public void setReceived(String received) {
         this.received = received;
     }
 

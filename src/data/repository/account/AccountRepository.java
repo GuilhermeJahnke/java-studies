@@ -1,4 +1,5 @@
 package data.repository.account;
+import java.util.Random;
 
 import domain.entities.account.AccountEntities;
 
@@ -17,15 +18,16 @@ public class AccountRepository {
         AccountEntities activities = null;
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ACCOUNT WHERE ID_ACCOUNT = ?");
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FIN_CONTA WHERE ID_ACCOUNT = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 activities = new AccountEntities(
-                        resultSet.getInt("AC_ID"),
                         resultSet.getString("NM_NAME"),
-                        resultSet.getDouble("BL_BALANCE")
+                        resultSet.getDouble("VL_SALDO"),
+                        resultSet.getInt("ID_USUARIO"),
+                        resultSet.getInt("ID_ACCOUNT")
                 );
             }
 
@@ -42,12 +44,14 @@ public class AccountRepository {
 
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "INSERT INTO T_ACCOUNT (NM_NAME, BL_BALANCE) VALUES ( ?, ?)";
+        String sql = "INSERT INTO T_FIN_CONTA (NM_NAME, VL_SALDO, ID_ACCOUNT, ID_USUARIO) VALUES ( ?, ?, ?, ?)";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
             statement.setString(1, account.getName());
             statement.setDouble(2, account.getBalance());
+            statement.setInt(3, account.getId());
+            statement.setInt(4, account.getUserId());
 
             affectedRows = connectionManager.ExecuteCommand(statement);
         } catch (SQLException e) {
@@ -61,7 +65,7 @@ public class AccountRepository {
     public int editAccount(String name, double balance) {
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "UPDATE T_ACCOUNT SET NM_NAME = ?, BL_BALANCE = ?";
+        String sql = "UPDATE T_FIN_CONTA SET NM_NAME = ?, VL_SALDO = ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -79,7 +83,7 @@ public class AccountRepository {
     public int removeAccount(int id) {
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "DELETE FROM T_ACCOUNT WHERE ID_ACCOUNT = ?";
+        String sql = "DELETE FROM T_FIN_CONTA WHERE ID_ACCOUNT = ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -99,14 +103,15 @@ public class AccountRepository {
         AccountEntities activities = null;
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_ACCOUNT");
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FIN_CONTA");
             ResultSet result = connectionManager.GetData(statement);
 
             while (result.next()) {
                 activities = new AccountEntities(
-                        result.getInt("AC_ID"),
                         result.getString("NM_NAME"),
-                        result.getDouble("BL_BALANCE")
+                        result.getDouble("VL_SALDO"),
+                        result.getInt("ID_USUARIO"),
+                        result.getInt("ID_ACCOUNT")
                 );
                 activitiesList.add(activities);
             }

@@ -12,25 +12,23 @@ import java.util.ArrayList;
 public class EntryExpenseRepository {
     ConnectionDAO connectionManager = new ConnectionDAO();
 
-    private final ArrayList<EntryExpenseEntities> mockDataBase = new ArrayList<>();
-
     public EntryExpenseEntities findById(int id) {
         PreparedStatement statement = null;
         EntryExpenseEntities entryExpenseEntities = null;
 
         try {
-            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FINTECH_ENTRYINVESTMENT WHERE ID_INVESTMENT = ?");
+            statement = connectionManager.GetConnection().prepareStatement("SELECT * FROM T_FIN_GASTO WHERE ID_INVESTMENT = ?");
             statement.setInt(1,id);
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()){
                 entryExpenseEntities = new EntryExpenseEntities(
-                        resultSet.getBoolean("EXP_RECEIVED"),
-                        resultSet.getString("EXP_RECEIVED_DATE"),
-                        resultSet.getDouble("EXP_VALOR"),
-                        resultSet.getString("EXP_DATE"),
-                        resultSet.getString("EXP_CATEGORY"),
-                        resultSet.getString("EXP_DESCRIPTION")
+                        resultSet.getString("ST_GASTO"),
+                        resultSet.getString("DT_GASTO"),
+                        resultSet.getDouble("VL_VALOR"),
+                        resultSet.getString("DT_CRIACAO"),
+                        resultSet.getString("CT_GASTO"),
+                        resultSet.getString("DS_GASTO")
                         );
             }
             resultSet.close();
@@ -45,11 +43,11 @@ public class EntryExpenseRepository {
     public int createEntryExpense(EntryExpenseEntities EntryExpenseEntity) {
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "INSERT INTO T_ENTRY_EXPENSE (EXP_RECEIVED, EXP_RECEIVED_DATE, EXP_VALOR, EXP_DATE, EXP_CATEGORY, EXP_DESCRIPTION) VALUES ( ?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO T_ENTRY_EXPENSE (ST_GASTO, DT_GASTO, VL_VALOR, DT_CRIACAO, CT_GASTO, DS_GASTO) VALUES ( ?,?,?,?,?,?,?)";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
-            statement.setBoolean(1, EntryExpenseEntity.getReceived());
+            statement.setString(1, EntryExpenseEntity.getReceived());
             statement.setString(2, EntryExpenseEntity.getReceivedDate());
             statement.setDouble(3, EntryExpenseEntity.getValor());
             statement.setString(4, EntryExpenseEntity.getDate());
@@ -67,11 +65,11 @@ public class EntryExpenseRepository {
 
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "UPDATE T_ENTRY_EXPENSE SET EXP_RECEIVED = ?, EXP_RECEIVED_DATE = ?, EXP_VALOR = ?, EXP_DATE = ?, EXP_CATEGORY = ?,EXP_DESCRIPTION = ? ";
+        String sql = "UPDATE T_ENTRY_EXPENSE SET ST_GASTO = ?, DT_GASTO = ?, VL_VALOR = ?, DT_CRIACAO = ?, CT_GASTO = ?,DS_GASTO = ? ";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
-            statement.setBoolean(1, EntryExpenseEntity.getReceived());
+            statement.setString(1, EntryExpenseEntity.getReceived());
             statement.setString(2, EntryExpenseEntity.getReceivedDate());
             statement.setDouble(3, EntryExpenseEntity.getValor());
             statement.setString(4,  EntryExpenseEntity.getDate());
@@ -114,12 +112,12 @@ public class EntryExpenseRepository {
 
             while (result.next()) {
                 entryExpenseEntities = new EntryExpenseEntities(
-                        result.getBoolean("EXP_RECEIVED"),
-                        result.getString("EXP_RECEIVED_DATE"),
-                        result.getDouble("EXP_VALOR"),
-                        result.getString("EXP_DATE"),
-                        result.getString("EXP_CATEGORY"),
-                        result.getString("EXP_DESCRIPTION")
+                        result.getString("ST_GASTO"),
+                        result.getString("DT_GASTO"),
+                        result.getDouble("VL_VALOR"),
+                        result.getString("DT_CRIACAO"),
+                        result.getString("CT_GASTO"),
+                        result.getString("DS_GASTO")
                         );
                 expenseList.add(entryExpenseEntities);
             }

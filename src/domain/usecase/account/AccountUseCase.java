@@ -1,6 +1,7 @@
 package domain.usecase.account;
 
 import data.repository.account.AccountRepository;
+import domain.entities.user.UserEntities;
 import domain.entities.account.AccountEntities;
 import shared.Utils;
 
@@ -21,10 +22,14 @@ public class AccountUseCase {
             throw new IllegalArgumentException("O [balance] não pode ser vazio, digite corretamente");
         }
     }
+    
+    public AccountEntities findById(int id) {
+    	return repository.findById(id);
+    }
 
-    public AccountEntities create(String name, double balance) {
+    public AccountEntities create(String name, double balance, UserEntities user) {
         verifyAllIsEmpty(name, balance);
-        AccountEntities accountInstance = new AccountEntities( 1, name, balance);
+        AccountEntities accountInstance = new AccountEntities(name, balance, user.getId());
         int isAccountCreated = repository.createAccount(accountInstance);
 
         if(isAccountCreated == 0) {

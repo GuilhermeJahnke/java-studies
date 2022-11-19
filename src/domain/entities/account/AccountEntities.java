@@ -1,20 +1,35 @@
 package domain.entities.account;
+import java.util.Random;
 
 public class AccountEntities {
     private int id;
+    int userId;
     private String name;
     private double balance;
 
-    public AccountEntities(int id, String name, double balance) {
+
+    public AccountEntities(String name, double balance, int userId) {
+        this.id = new Random().nextInt(9999999);
+        this.name = name;
+        this.balance = balance;
+        this.userId = userId;
+    }
+    
+    public AccountEntities(String name, double balance, int userId, int id) {
         this.id = id;
         this.name = name;
         this.balance = balance;
+        this.userId = userId;
     }
 
     public int getId() {
         return id;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+    
     public String getName() {
         return name;
     }
