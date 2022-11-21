@@ -95,7 +95,7 @@ public class UserRepository {
 
         int affectedRows = 0;
         PreparedStatement statement;
-        String sql = "UPDATE T_FIN_USUARIO SET NM_NAME = ?, DS_EMAIL = ?, NM_CPF = ?, DS_SENHA = ?, ID_USUARIO = ?";
+        String sql = "UPDATE T_FIN_USUARIO SET NM_USUARIO = ?, DS_EMAIL = ?, NM_CPF = ?, DS_SENHA = ?, ID_USUARIO = ?";
 
         try {
             statement = connectionManager.GetConnection().prepareStatement(sql);
@@ -142,7 +142,7 @@ public class UserRepository {
 
             while (result.next()) {
             	users = new UserEntities(
-            			result.getString("NM_NAME"),
+            			result.getString("NM_USUARIO"),
             			result.getString("DS_EMAIL"),
             			result.getString("NM_CPF"),
             			result.getString("DS_SENHA"),

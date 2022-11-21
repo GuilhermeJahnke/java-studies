@@ -31,7 +31,7 @@ public class Main {
             System.out.println("Digite [1] para cadastrar um perfil:");
             System.out.println("Digite [2] para listar todos os perfis:");
             System.out.println("Digite [3] para cadastrar uma conta:");
-            System.out.println("Digite [4] para listar todos os perfis:");
+            System.out.println("Digite [4] para listar todos as contas:");
             System.out.println("Digite [5] para sair:");
             int selectedOption = in.nextInt();
 
@@ -108,7 +108,7 @@ public class Main {
     private static void getAllUsers() {
         System.out.println("\nExibiremos todos os perfis registrados\n");
         ArrayList<UserEntities> allUsers = userUseCase.getAll();
-        System.out.println(userUseCase + "\n");
+        System.out.println(allUsers + "\n");
     }
 
 }
