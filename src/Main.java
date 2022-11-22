@@ -1,6 +1,10 @@
 import domain.entities.account.AccountEntities;
 import domain.entities.user.UserEntities;
 import domain.usecase.account.AccountUseCase;
+import domain.usecase.entry.EntryExpenseUseCase;
+import domain.usecase.entry.EntryInvestmentUseCase;
+import domain.usecase.entry.EntryReceiptUseCase;
+import domain.usecase.finance_goal.FinanceGoalUseCase;
 import domain.usecase.user.UserUseCase;
 
 import java.util.ArrayList;
@@ -10,6 +14,12 @@ import java.util.Scanner;
 public class Main {
     private static final UserUseCase userUseCase = new UserUseCase();
     private static final AccountUseCase accountUseCase = new AccountUseCase();
+    private static final EntryExpenseUseCase expenseUseCase = new EntryExpenseUseCase();
+    private static final EntryInvestmentUseCase investmentUseCase = new EntryInvestmentUseCase();
+    private static final EntryReceiptUseCase receiptUseCase = new EntryReceiptUseCase();
+
+    private static final FinanceGoalUseCase financeUseCase = new FinanceGoalUseCase();
+
     private static final Scanner in = new Scanner(System.in);
     private static final int createProfileOption = 1;
     private static final int getAllProfileOption = 2;
